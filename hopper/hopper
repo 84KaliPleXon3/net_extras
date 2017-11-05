@@ -51,9 +51,9 @@ usage () {
      '-i or --interface specifies the interface name to hop on [mandatory]' \
      '-b or --band specifies the bands to use for frequency hopping, one of' \
      '  b      frequencies 2412-2484 MHz' \
-     '  a_fsn  frequencies 4800-6100/5 MHz [default]' \
+     '  a_fsn  frequencies 4800-6100/5 MHz' \
      '  a_def  frequencies 5180-5320/20 + 5500-5700/20 MHz' \
-     '  a_ext  frequencies 5180-5320/20 + 5500-5700/20 + 5805-5825/20 MHz' \
+     '  a_ext  frequencies 5180-5320/20 + 5500-5700/20 + 5805-5825/20 MHz [default]' \
      '  Use multiple -b arguments for multiple scan lists' \
      "-d or --dwelltime amount of time to spend on each frequency [default $DWELLTIME seconds]" \
      ' ' \
