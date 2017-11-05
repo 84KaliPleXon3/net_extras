@@ -1,0 +1,53 @@
+Kismet (http://www.kismetwireless.net)
+Sun Nov  5 12:01:56 2017 - Kismet 2016.07.R1
+-----------------
+
+Network 1: BSSID 54:64:D9:D0:E5:64
+ Manuf      : Sagemcom
+ First      : Sun Nov  5 12:01:58 2017
+ Last       : Sun Nov  5 12:01:59 2017
+ Type       : infrastructure
+ BSSID      : 54:64:D9:D0:E5:64
+   SSID 1
+    Type       : Beacon
+    SSID       : "10101_fb" 
+    First      : Sun Nov  5 12:01:58 2017
+    Last       : Sun Nov  5 12:01:59 2017
+    Max Rate   : 144.4
+    Beacon     : 10
+    Packets    : 6
+    WPS        : No
+    Encryption : WPA+PSK
+    Encryption : WPA+AES-CCM
+    WPA Version: WPA2
+ Channel    : 13
+ Frequency  : 2472 - 6 packets, 100.00%
+ Max Seen   : 1000
+ LLC        : 6
+ Data       : 0
+ Crypt      : 0
+ Fragments  : 0
+ Retries    : 0
+ Total      : 6
+ Datasize   : 0
+ Last BSSTS : Nov  5 05:38:57
+    Seen By : wlp4s0 (wlp4s0mon) bd5ebc90-c218-11e7-ac98-0b0468192a02 6 packets
+              Sun Nov  5 12:01:59 2017
+ Client 1: MAC 54:64:D9:D0:E5:64
+  Manuf      : Sagemcom
+  First      : Sun Nov  5 12:01:58 2017
+  Last       : Sun Nov  5 12:01:59 2017
+  Type       : From Distribution
+  MAC        : 54:64:D9:D0:E5:64
+  Channel    : 13
+  Frequency  : 2472 - 6 packets, 100.00%
+  Max Seen   : 1000
+  LLC        : 6
+  Data       : 0
+  Crypt      : 0
+  Fragments  : 0
+  Retries    : 0
+  Total      : 6
+  Datasize   : 0
+     Seen By : wlp4s0 (wlp4s0mon) bd5ebc90-c218-11e7-ac98-0b0468192a02 6 packets
+               Sun Nov  5 12:01:59 2017

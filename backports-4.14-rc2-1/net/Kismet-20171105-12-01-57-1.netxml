@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE detection-run SYSTEM "http://kismetwireless.net/kismet-3.1.0.dtd">
+
+<detection-run kismet-version="2016.07.R1" start-time="Sun Nov  5 12:01:56 2017">
+
+<card-source uuid="bd5ebc90-c218-11e7-ac98-0b0468192a02">
+ <card-source>wlp4s0</card-source>
+ <card-name>wlp4s0</card-name>
+ <card-interface>wlp4s0mon</card-interface>
+ <card-type>ath9k</card-type>
+ <card-packets>6</card-packets>
+ <card-hop>true</card-hop>
+ <card-channels>1,5,9,13,39,43,47,54,58,62,101,105,109,113,117,121,125,129,133,137,2,6,10,36,40,44,48,55,59,63,102,106,110,114,118,122,126,130,134,138,3,7,11,37,41,45,52,56,60,64,103,107,111,115,119,123,127,131,135,139,4,8,12,38,42,46,53,57,61,100,104,108,112,116,120,124,128,132,136,140</card-channels>
+</card-source>
+  <wireless-network number="1" type="infrastructure" first-time="Sun Nov  5 12:01:58 2017" last-time="Sun Nov  5 12:01:59 2017">
+    <SSID first-time="Sun Nov  5 12:01:58 2017" last-time="Sun Nov  5 12:01:59 2017">
+        <type>Beacon</type>
+        <max-rate>144.400000</max-rate>
+        <packets>6</packets>
+        <beaconrate>10</beaconrate>
+        <wps>No</wps>
+        <encryption>WPA+PSK</encryption>
+        <encryption>WPA+AES-CCM</encryption>
+        <wpa-version>WPA2</wpa-version>
+        <essid cloaked="false">10101_fb</essid>
+    </SSID>
+    <BSSID>54:64:D9:D0:E5:64</BSSID>
+    <manuf>Sagemcom</manuf>
+    <channel>13</channel>
+    <freqmhz>2472 6</freqmhz>
+    <maxseenrate>1000</maxseenrate>
+     <packets>
+       <LLC>6</LLC>
+       <data>0</data>
+       <crypt>0</crypt>
+       <total>6</total>
+       <fragments>0</fragments>
+       <retries>0</retries>
+     </packets>
+     <datasize>0</datasize>
+    <snr-info>
+      <last_signal_dbm>-41</last_signal_dbm>
+      <last_noise_dbm>0</last_noise_dbm>
+      <last_signal_rssi>0</last_signal_rssi>
+      <last_noise_rssi>0</last_noise_rssi>
+      <min_signal_dbm>-43</min_signal_dbm>
+      <min_noise_dbm>0</min_noise_dbm>
+      <min_signal_rssi>1024</min_signal_rssi>
+      <min_noise_rssi>1024</min_noise_rssi>
+      <max_signal_dbm>-28</max_signal_dbm>
+      <max_noise_dbm>-256</max_noise_dbm>
+      <max_signal_rssi>0</max_signal_rssi>
+      <max_noise_rssi>0</max_noise_rssi>
+    </snr-info>
+    <bsstimestamp>Nov  5 05:38:57</bsstimestamp>
+    <cdp-device></cdp-device>
+    <cdp-portid></cdp-portid>
+    <seen-card>
+     <seen-uuid>bd5ebc90-c218-11e7-ac98-0b0468192a02</seen-uuid>
+     <seen-time>Sun Nov  5 12:01:59 2017</seen-time>
+     <seen-packets>6</seen-packets>
+    </seen-card>
+    <wireless-client number="1" type="fromds" first-time="Sun Nov  5 12:01:58 2017" last-time="Sun Nov  5 12:01:59 2017">
+      <client-mac>54:64:D9:D0:E5:64</client-mac>
+      <client-manuf>Sagemcom</client-manuf>
+      <channel>13</channel>
+      <freqmhz>2472 6</freqmhz>
+      <maxseenrate>1000</maxseenrate>
+       <packets>
+         <LLC>6</LLC>
+         <data>0</data>
+         <crypt>0</crypt>
+         <total>6</total>
+         <fragments>0</fragments>
+         <retries>0</retries>
+       </packets>
+       <datasize>0</datasize>
+      <snr-info>
+        <last_signal_dbm>-41</last_signal_dbm>
+        <last_noise_dbm>0</last_noise_dbm>
+        <last_signal_rssi>0</last_signal_rssi>
+        <last_noise_rssi>0</last_noise_rssi>
+        <min_signal_dbm>-43</min_signal_dbm>
+        <min_noise_dbm>0</min_noise_dbm>
+        <min_signal_rssi>1024</min_signal_rssi>
+        <min_noise_rssi>1024</min_noise_rssi>
+        <max_signal_dbm>-28</max_signal_dbm>
+        <max_noise_dbm>-256</max_noise_dbm>
+        <max_signal_rssi>0</max_signal_rssi>
+        <max_noise_rssi>0</max_noise_rssi>
+      </snr-info>
+      <seen-card>
+       <seen-uuid>bd5ebc90-c218-11e7-ac98-0b0468192a02</seen-uuid>
+       <seen-time>Sun Nov  5 12:01:59 2017</seen-time>
+       <seen-packets>6</seen-packets>
+      </seen-card>
+    </wireless-client>
+  </wireless-network>
+</detection-run>
