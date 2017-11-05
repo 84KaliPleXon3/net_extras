@@ -1,0 +1,142 @@
+#!/bin/bash
+
+##  Frequency hopping shell script
+##
+##  Portions of code graciously taken from Bill Stearns defragfile
+##  http://www.stearns.org/defragfile/
+##
+##  Created by jwright@hasborg.com (chanhop.sh)
+##  Totally modified by sjg@fmdx.pl
+##
+##  https://fmdx.pl/
+##
+
+
+##  Defaults
+
+BANDS="IEEE80211A"
+DWELLTIME=".205"
+INTERFACE="wlp4s0"
+
+FREQA="4900 4905 4910 4915 4920 4925 4930 4935 4940 4945 4950 4955 4960 4965 4970 4975 4980 4985 4990 4995 5000 5005 5010 5015 5020 5025 5030 5035 5040 5045 5050 5055 5060 5065 5070 5075 5080 5085 5090 5095 5100 5105 5110 5115 5120 5125 5130 5135 5140 5145 5150 5155 5160 5165 5170 5175 5180 5185 5190 5195 5200 5205 5210 5215 5220 5225 5230 5235 5240 5245 5250 5255 5260 5265 5270 5275 5280 5285 5290 5295 5300 5305 5310 5315 5320 5325 5330 5335 5340 5345 5350 5355 5360 5365 5370 5375 5380 5385 5390 5395 5400 5405 5410 5415 5420 5425 5430 5435 5440 5445 5450 5455 5460 5465 5470 5475 5480 5485 5490 5495 5500 5505 5510 5515 5520 5525 5530 5535 5540 5545 5550 5555 5560 5565 5570 5575 5580 5585 5590 5595 5600 5605 5610 5615 5620 5625 5630 5635 5640 5645 5650 5655 5660 5665 5670 5675 5680 5685 5690 5695 5700 5705 5710 5715 5720 5725 5730 5735 5740 5745 5750 5755 5760 5765 5770 5775 5780 5785 5790 5795 5800 5805 5810 5815 5820 5825 5830 5835 5840 5845 5850 5855 5860 5865 5870 5875 5880 5885 5890 5895 5900 5905 5910 5915 5920 5925 5930 5935 5940 5945 5950 5955 5960 5965 5970 5975 5980 5985 5990 5995 6000 6005 6010 6015 6020 6025 6030 6035 6040 6045 6050 6055 6060 6065 6070 6075 6080 6085 6090 6095 6100"
+FREQBJPi="2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484"
+FREQBINTL="2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484"
+ 
+requireutil () {
+    while [ -n "$1" ]; do
+        if ! type -path "$1" >/dev/null 2>/dev/null ; then
+            echo Missing utility "$1". Please install it. >&2
+            return 1
+        fi
+        shift
+    done
+    return 0
+}
+ 
+fail () {
+    while [ -n "$1" ]; do
+        echo "$1" >&2
+        shift
+    done
+    echo "Exiting." >&2
+    echo
+    exit 1
+}
+ 
+usage () {
+    fail 'hopper: Usage:' \
+     "$0 [-i|--interface] [-b|--band] [-d|--dwelltime]" \
+     '-i or --interface specifies the interface name to hop on [mandatory]' \
+     '-b or --band specifies the bands to use for frequency hopping, one of' \
+     '  IEEE80211B      frequencies 1-11 ' \
+     '  IEEE80211BINTL  frequencies 1-13' \
+     '  IEEE80211BJP    frequencies 1-14' \
+     '  IEEE80211A      frequencies 36-161 [default]' \
+     '    Use multiple -b arguments for multiple bands' \
+     "-d or --dwelltime amount of time to spend on each channel [default $DWELLTIME seconds]" \
+     ' ' \
+     "e.x. $0 -i wlp4s0 -b IEEE80211AINTL -b IEEE80211A -d .10"
+ }
+ 
+# main
+requireutil sleep whoami iw || exit 1
+ 
+if [ `whoami` != root ]; then
+    echo "You must run this script as root, or under \"sudo\"."
+    usage
+    fail
+fi
+ 
+ 
+while [ -n "$1" ]; do
+    case "$1" in
+    -i|--interface)
+        ARG_INTERFACE="$2"
+        shift
+        ;;
+    -b|--band)
+        ARG_BANDS="$2 $ARG_BANDS"
+        shift
+        ;;
+    -d|--dwelltime)
+        ARG_DWELLTIME="$2"
+        shift
+        ;;
+    *)
+        echo "Unsupported argument \"$1\"."
+        usage
+        fail
+        ;;
+    esac
+    shift
+done
+ 
+if [ ! -z "$ARG_INTERFACE" ]; then
+  sleep $ARG_INTERFACE 2>/dev/null
+  INTERFACE=$ARG_INTERFACE
+fi
+ 
+if [ ! -z "$ARG_DWELLTIME" ] ; then
+    sleep $ARG_DWELLTIME 2>/dev/null
+    if [ $? -ne 0 ] ; then
+        fail "Invalid dwell time specified: \"$ARG_DWELLTIME\"."
+    fi
+    DWELLTIME=$ARG_DWELLTIME
+fi
+ 
+# If the user specified the -b argument, we use that instead of default
+if [ ! -z "$ARG_BANDS" ] ; then
+    BANDS=$ARG_BANDS
+fi
+ 
+# Expand specified bands into a list of channels
+for BAND in $BANDS ; do
+    case "$BAND" in
+    IEEE80211B|IEEE80211b|ieee80211b)
+        FREQS="$FREQS $FREQB"
+        ;;
+    IEEE80211BJP|IEEE80211bjp|ieee80211bjp)
+        FREQS="$FREQS $FREQBJP"
+        ;;
+    IEEE80211BINTL|IEEE80211bintl|ieee80211bintl)
+        FREQS="$FREQS $FREQBINTL"
+        ;;
+    IEEE80211A|IEEE80211a|ieee80211a)
+        FREQS="$FREQS $FREQA"
+        ;;
+    *)
+        fail "Unsupported band specified \"$BAND\"."
+        ;;
+    esac
+done
+ 
+echo "Starting frequency hopping, press CTRL/C to exit."
+while true; do
+    for FREQUENCY in $FREQS ; do
+        iw $INTERFACE set freq $FREQUENCY
+        if [ $? -ne 0 ] ; then
+            fail "iw returned an error when setting frequency $FREQUENCY"
+        fi
+        sleep $DWELLTIME
+    done
+done
