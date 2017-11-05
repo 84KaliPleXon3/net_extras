@@ -1,0 +1,77 @@
+#!/bin/bash
+INTERFACE="wlp4s0"
+DWELLTIME=".205"
+
+requireutil () {
+  while [ -n "$1" ]; do
+    if ! type -path "$1" >/dev/null 2>/dev/null; then
+      echo Missing utility "$1". Please install it. >&2
+      return 1
+    fi
+    shift
+  done
+  return 0
+}
+
+fail () {
+  while [ -n "$1" ]; do
+    echo "$1" >&2
+    shift
+  done
+  echo "Exiting.">&2
+  echo
+  exit 1
+}
+
+usage() {
+fail  'get_frequency: Usage:' \
+  "$0 [-i|--interface] [-d|--dwelltime]" \
+  '-i or --interface specifies the interface name to grep current channel' \
+  '-d or --dwelltime specifies the refresh time' \
+  ' ' \
+  "eg. $0 -i wlp4s0 -d 0.205"
+}
+
+print_frequency () {
+  iw $1 info | grep channel | gawk '{print "Current frequency: " $2 " MHz"}' FPAT='[0-9]+';
+}
+export -f print_frequency
+
+requireutil grep watch iw || exit 1
+
+while [ -n "$1" ] ; do
+  case "$1" in
+    -i|--interface)
+      ARG_INTERFACE="$2"
+      shift
+      ;;
+    -d|--dwelltime)
+      ARG_DWELLTIME="$2"
+      shift
+      ;;
+    *)
+      echo "Unsupported argument \"$1\"."
+      usage
+      fail
+      ;;
+  esac
+  shift
+done
+
+if [ ! -z "$ARG_INTERFACE" ] ; then
+  sleep $ARG_INTERFACE 2>/dev/null
+  INTERFACE=$ARG_INTERFACE
+fi
+
+if [ ! -z "$ARG_DWELLTIME" ] ; then
+  sleep $ARG_DWELLTIME 2>/dev/null
+  if [ $? -ne 0 ] ; then
+    fail "Invalid dwelltime specified: \"$ARG_DWELLTIME\"."
+  fi
+  DWELLTIME=$ARG_DWELLTIME
+fi
+
+echo "Starting frequency monitoring, press CTRL/C to exit."
+sleep 1
+watch -n $DWELLTIME -t print_frequency $INTERFACE
+
